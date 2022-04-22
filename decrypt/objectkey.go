@@ -1,6 +1,6 @@
-// Copyright (c) 2015-2021 MinIO, Inc.
+// Copyright (c) 2022 FrogHub, Inc.
 //
-// This file is part of MinIO Object Storage stack
+// This file is part of FrogHub Files' Key Management Service Tools
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -39,7 +39,6 @@ const (
 	// InsecureSealAlgorithm is the legacy encryption/sealing algorithm used
 	// to derive & seal the key-encryption-key and to en/decrypt the object data.
 	// This algorithm should not be used for new objects because its key derivation
-	// is not optimal. See: https://github.com/minio/minio/pull/6121
 	InsecureSealAlgorithm = "DARE-SHA256"
 )
 
