@@ -11,7 +11,7 @@ import (
 	"testing"
 )
 
-func TestUnseal(t *testing.T) {
+func TestDecrypt(t *testing.T) {
 	log.SetFormatter(&log.TextFormatter{
 		FullTimestamp: true,
 	})
@@ -48,6 +48,4 @@ func TestUnseal(t *testing.T) {
 		log.Error(err)
 		return
 	}
-
-	log.Info("Finish kms unseal")
 }

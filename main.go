@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/froghub-io/kms/cmd"
 	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli/v2"
 	"os"
@@ -15,10 +16,14 @@ func main() {
 	})
 	app := &cli.App{
 		Name:    "kms",
-		Usage:   "Benchmark performance of lotus on your hardware",
+		Usage:   "KMS Command provides decryption and key management, suitable for decrypting FrogFS encrypted files.",
 		Version: BuildVersion,
 		Commands: []*cli.Command{
-			unsealCmd,
+			cmd.InitCmd,
+			cmd.DecryptCmd,
+			cmd.ListCmd,
+			cmd.ImportCmd,
+			cmd.RemoveCmd,
 		},
 	}
 

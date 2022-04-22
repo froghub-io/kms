@@ -6,12 +6,65 @@ import (
 	"context"
 	"encoding/base64"
 	"encoding/binary"
+	"encoding/json"
 	"errors"
 	"github.com/minio/sio"
 	"io"
+	"io/ioutil"
 	"os"
 	"path"
 )
+
+func GetKmsKeys(filepath string) (map[string]string, error) {
+	ok, err := FileExist(filepath)
+	if err != nil {
+		return nil, err
+	}
+	if !ok {
+		return nil, errors.New("KMS initialization is not performed")
+	}
+
+	data, err := ioutil.ReadFile(filepath)
+	if err != nil {
+		return nil, err
+	}
+
+	var kmsKeys = map[string]string{}
+	err = json.Unmarshal(data, &kmsKeys)
+	if err != nil {
+		return nil, err
+	}
+	return kmsKeys, nil
+}
+
+func MkdirAll(path string) error {
+	_, err := os.Stat(path)
+	notexist := os.IsNotExist(err)
+
+	if notexist {
+		err = os.MkdirAll(path, 0755) //nolint: gosec
+		if err != nil && !os.IsExist(err) {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func FileExist(filepath string) (bool, error) {
+	_, err := os.Stat(filepath)
+	notExist := os.IsNotExist(err)
+	if notExist {
+		err = nil
+		_, err = os.Stat(filepath)
+		notExist = os.IsNotExist(err)
+		if notExist {
+			err = nil
+		}
+	}
+
+	return !notExist, err
+}
 
 func WriteFile(reader io.Reader, dest string) error {
 	f, err := openFile(dest)

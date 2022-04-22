@@ -1,5 +1,7 @@
 package decrypt
 
+const KMSConfig = "kms-config.json"
+
 const (
 	// MetaBucket is the s3 bucket name
 	MetaBucket = "X-FrogHub-Internal-Bucket"
